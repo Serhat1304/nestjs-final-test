@@ -18,12 +18,12 @@ export class UserService {
     }
 
     await this.prismaService.getPrismaClient().user.create({ data: { email } });
-    this.logger.log(`User created: email=${email}`);
+    this.logger.log(`Utilisateur crée: email=${email}`);
   }
 
   async getUser(email: string): Promise<any> {
     const user = await this.prismaService.getPrismaClient().user.findUnique({ where: { email } });
-    this.logger.log(`Retrieved user: ${JSON.stringify(user)}`);
+    this.logger.log(`Utilisateur retrouvé: ${JSON.stringify(user)}`);
     return user;
   }
 
@@ -33,9 +33,9 @@ export class UserService {
       await prisma.$transaction(async (trans) => {
         await trans.user.deleteMany();
       });
-      this.logger.log('User data reset complete');
+      this.logger.log('Réinitialisation des données des utilisateurs terminée');
     } catch (error) {
-      this.logger.error("Failed to reset user data", error.stack);
+      this.logger.error("Échec de la réinitialisation des données", error.stack);
       throw error;
     }
   }
